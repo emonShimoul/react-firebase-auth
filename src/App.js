@@ -15,13 +15,21 @@ function App() {
     e.preventDefault();
     console.log(email, password);
     if(password.length < 6){
-      setError('Password must be at 6 character long!!');
+      setError('Password must be at least 6 characters long!!');
+      return;
+    }
+    if(!/(?=.*[A-Z].*[A-Z])/.test(password)){
+      setError('Password must contain 2 uppercase!!');
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
     .then(result => {
       const user = result.user;
       console.log(user);
+      setError('');
+    })
+    .catch(error => {
+      setError(error.message);
     })
   }
 
