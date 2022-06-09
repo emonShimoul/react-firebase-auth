@@ -1,5 +1,5 @@
 import './App.css';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useState } from 'react';
 import initializeAuthentication from './Firebase/firebase.init';
 
@@ -58,9 +58,17 @@ function App() {
       const user = result.user;
       console.log(user);
       setError('');
+      verifyEmail();
     })
     .catch(error => {
       setError(error.message);
+    })
+  }
+
+  const verifyEmail = () => {
+    sendEmailVerification(auth.currentUser)
+    .then(result => {
+      console.log(result);
     })
   }
 
