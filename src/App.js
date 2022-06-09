@@ -1,5 +1,5 @@
 import './App.css';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { useState } from 'react';
 import initializeAuthentication from './Firebase/firebase.init';
 
@@ -64,6 +64,7 @@ function App() {
       console.log(user);
       setError('');
       verifyEmail();
+      setUserName();
     })
     .catch(error => {
       setError(error.message);
@@ -84,16 +85,25 @@ function App() {
     })
   }
 
+  const setUserName = () => {
+    updateProfile(auth.currentUser, {
+      displayName: name
+    })
+    .then(result => {})
+  }
+
   return (
     <div className="mx-5 mt-5">
       <form onSubmit={handleRegistration}>
         <h3 className='text-primary mb-4'>Please {isLogin ? 'Login' : 'Register'}:</h3>
+        { !isLogin &&
         <div className="row mb-3">
           <label htmlFor="inputName" className="col-sm-2 col-form-label">Name</label>
           <div className="col-sm-10">
             <input onBlur={handleNameChange} type="text" className="form-control" id="inputName" required/>
           </div>
         </div>
+        }
         <div className="row mb-3">
           <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
           <div className="col-sm-10">
