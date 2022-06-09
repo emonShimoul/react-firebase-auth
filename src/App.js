@@ -1,5 +1,5 @@
 import './App.css';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import { useState } from 'react';
 import initializeAuthentication from './Firebase/firebase.init';
 
@@ -72,6 +72,13 @@ function App() {
     })
   }
 
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+    .then(result => {
+      
+    })
+  }
+
   return (
     <div className="mx-5 mt-5">
       <form onSubmit={handleRegistration}>
@@ -102,6 +109,7 @@ function App() {
         <button type="submit" className="btn btn-primary">
           {isLogin ? 'Login' : 'Register'}
         </button>
+        <button type='button' onClick={handleResetPassword} className="btn btn-secondary btn-sm">Reset Password</button>
       </form>
     </div>
   );
