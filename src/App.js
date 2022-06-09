@@ -9,6 +9,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const auth = getAuth();
 
@@ -48,6 +49,10 @@ function App() {
     setEmail(e.target.value);
   }
 
+  const handleNameChange = e => {
+    setName(e.target.value);
+  }
+
   const handlePasswordChange = e => {
     setPassword(e.target.value);
   }
@@ -83,6 +88,12 @@ function App() {
     <div className="mx-5 mt-5">
       <form onSubmit={handleRegistration}>
         <h3 className='text-primary mb-4'>Please {isLogin ? 'Login' : 'Register'}:</h3>
+        <div className="row mb-3">
+          <label htmlFor="inputName" className="col-sm-2 col-form-label">Name</label>
+          <div className="col-sm-10">
+            <input onBlur={handleNameChange} type="text" className="form-control" id="inputName" required/>
+          </div>
+        </div>
         <div className="row mb-3">
           <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Email</label>
           <div className="col-sm-10">
